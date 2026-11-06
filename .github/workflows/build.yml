@@ -1,0 +1,107 @@
+name: Build Divebomb
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -DDIVEBOMB_BUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build --config Release --parallel 4
+
+      - name: Engine render test (bass tracking, levels, footswitches, latency, CPU)
+        run: build\Release\divebomb_render_test.exe
+
+      - name: Validate with pluginval
+        id: pluginval
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri https://github.com/Tracktion/pluginval/releases/latest/download/pluginval_Windows.zip -OutFile pluginval.zip
+          Expand-Archive pluginval.zip -DestinationPath pluginval
+          $proc = Start-Process -FilePath .\pluginval\pluginval.exe -Wait -PassThru -NoNewWindow `
+            -RedirectStandardOutput pluginval-report.txt -RedirectStandardError pluginval-errors.txt `
+            -ArgumentList '--strictness-level 5 --validate-in-process --skip-gui-tests --timeout-ms 600000 --validate "build\Divebomb_artefacts\Release\VST3\Divebomb.vst3"'
+          $code = $proc.ExitCode
+          Get-Content pluginval-report.txt -Tail 15
+          Get-Content pluginval-report.txt | Select-String -Pattern "FAILED|!!!|ERROR|Error|crash|Exception" | Select-Object -Last 40 | ForEach-Object { Write-Output "::warning::$($_.Line)" }
+          exit $code
+
+      - name: Collect plugin
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item -Recurse "build\Divebomb_artefacts\Release\VST3\Divebomb.vst3" dist\
+          Copy-Item "build\Divebomb_artefacts\Release\Standalone\Divebomb.exe" "dist\Divebomb standalone.exe"
+          Copy-Item README.md dist\
+          Copy-Item docs\test-checklist.md dist\
+          Copy-Item docs\ableton-setup.md dist\
+          Copy-Item test-results.md "dist\test-results-windows.md"
+          if (Test-Path pluginval-report.txt) { Copy-Item pluginval-report.txt dist\ }
+
+      # Artifact storage counts against the account quota, so the finished
+      # plugin is published to a 'builds' branch instead.
+      - name: Publish to the builds branch
+        shell: pwsh
+        run: |
+          Compress-Archive -Path dist\* -DestinationPath Divebomb-Windows.zip -Force
+          Copy-Item test-results.md test-results-windows.md
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout --orphan builds
+          git rm -r -q --cached .
+          git add -f Divebomb-Windows.zip test-results-windows.md
+          git commit -q -m "Windows build $env:GITHUB_SHA"
+          git push -f origin builds
+
+  # The Raspberry Pi pedalboard runs Linux on ARM64. Building it on every push keeps
+  # the engine portable before the rig exists.
+  linux-arm64:
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libasound2-dev libfreetype-dev libfontconfig1-dev libx11-dev \
+            libxcomposite-dev libxcursor-dev libxext-dev libxinerama-dev libxrandr-dev libxrender-dev libglu1-mesa-dev mesa-common-dev
+
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DDIVEBOMB_BUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build --target Divebomb_VST3 Divebomb_LV2 divebomb_render_test --parallel 4
+
+      - name: Engine render test on ARM64
+        run: ./build/divebomb_render_test
+
+      - name: Publish to the builds-arm64 branch
+        run: |
+          mkdir dist
+          cp -r build/Divebomb_artefacts/Release/VST3/Divebomb.vst3 dist/
+          cp -r build/Divebomb_artefacts/Release/LV2/Divebomb.lv2 dist/
+          cp test-results.md dist/test-results-arm64.md
+          cp README.md dist/
+          (cd dist && zip -qr ../Divebomb-Linux-ARM64.zip .)
+          cp test-results.md test-results-arm64.md
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout --orphan builds-arm64
+          git rm -r -q --cached .
+          git add -f Divebomb-Linux-ARM64.zip test-results-arm64.md
+          git commit -q -m "Linux ARM64 build $GITHUB_SHA"
+          git push -f origin builds-arm64

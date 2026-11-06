@@ -1,0 +1,4 @@
+build/
+*.user
+.vs/
+test-results.md

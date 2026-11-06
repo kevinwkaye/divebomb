@@ -1,0 +1,268 @@
+<title>Divebomb Feature Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: one reading column, a pitch-dive hero line, sticky-free contents strip, wide tables scroll in place */
+:root{
+  --bg:#f3f2f0; --panel:#ffffff; --fg:#1e1c20; --muted:#615c66; --line:#dcd8d2; --accent:#b8262c; --accent-soft:#f6e1df;
+  --display:"Roboto Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#131216;--panel:#1c1b21;--fg:#ece8e3;--muted:#a49eaa;--line:#2f2d36;--accent:#ff6b5e;--accent-soft:#3a1d1c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#131216;--panel:#1c1b21;--fg:#ece8e3;--muted:#a49eaa;--line:#2f2d36;--accent:#ff6b5e;--accent-soft:#3a1d1c;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--body)}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+header{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;margin-bottom:24px}
+header svg{width:120px;height:96px}
+header path{fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;stroke-dasharray:260;stroke-dashoffset:0;animation:dive 3.2s ease-in-out infinite}
+header line{stroke:var(--line);stroke-width:2}
+@keyframes dive{0%{stroke-dashoffset:260}55%,100%{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){header path{animation:none}}
+h1{font:700 2.4rem/1.05 var(--display);margin:0;letter-spacing:.01em;text-wrap:balance}
+.sub{color:var(--muted);margin:.35rem 0 0;max-width:62ch}
+.rec{background:var(--accent-soft);border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin:0 0 20px}
+.rec b{font-family:var(--display);letter-spacing:.04em;text-transform:uppercase;font-size:.8rem;color:var(--accent);display:block}
+nav{display:flex;flex-wrap:wrap;gap:6px 14px;font:500 .85rem var(--display);letter-spacing:.05em;text-transform:uppercase;border-block:1px solid var(--line);padding-block:10px;margin-bottom:8px}
+nav a{color:var(--muted);text-decoration:none} nav a:hover,nav a:focus-visible{color:var(--accent)}
+h2{font:700 1.45rem/1.2 var(--display);margin:2.2rem 0 .6rem;text-wrap:balance}
+h3{font:700 1.1rem/1.25 var(--display);margin:1.5rem 0 .4rem;letter-spacing:.02em}
+p,li{max-width:72ch} a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.86em;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--panel);margin:.8rem 0}
+table{border-collapse:collapse;width:100%;min-width:600px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{font:700 .78rem var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tbody tr:last-child td{border-bottom:0}
+td:first-child{white-space:nowrap}
+td.num,th.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.qs{background:var(--panel);border:1px solid var(--accent);border-radius:8px;padding:14px 18px 14px 38px}
+.qs li{margin-bottom:.5rem}
+@media (max-width:520px){header{grid-template-columns:1fr}header svg{width:90px;height:72px}h1{font-size:1.9rem}}
+</style>
+<div class="wrap">
+<header>
+<svg viewBox="0 0 120 96" aria-hidden="true"><line x1="4" y1="40" x2="116" y2="40"/><path d="M6 40 C30 40 34 14 52 14 C70 14 66 40 76 52 C88 70 100 88 114 90"/></svg>
+<div><h1>Divebomb feature map</h1><p class="sub">A pitch plugin recreating seven DigiTech pedals: four treadle Whammys and three footswitch pitch pedals, in the Flip Fella dark family. Research and plan, 6 November 2026. Questions answered the same day. The build waits for mockup approval.</p></div>
+</header>
+
+<div class="rec"><b>Recommendation</b>One treadle engine with a Model selector (Whammy 5, DT, MonoNeon, Bass), sharing one tracker, one treadle and one bass path. The models differ only in their settings list, extra panel and character. Everything pitch-related runs through one shifter per voice that adds every active shift together, so stacking a drop tune on a whammy never stacks latency.</div>
+
+<nav aria-label="Contents"><a href="#pedals">The pedals</a><a href="#engine">One engine</a><a href="#treadle">Treadle section</a><a href="#footswitch">Footswitch section</a><a href="#character">Character</a><a href="#bass">Bass</a><a href="#latency">Latency</a><a href="#treadle-feel">Treadle feel</a><a href="#footswitches">Footswitches</a><a href="#mononeon">MonoNeon skin</a><a href="#family">Family</a><a href="#questions">Decisions</a><a href="#sources">Sources</a></nav>
+
+<p>All DSP will be original code written from the manuals and public descriptions. The plugin UI names no brands or pedals, and "Whammy" is DigiTech's trademark, so the panel uses plain words: the Model card reads FIVE, DUAL, NEON and BASS, the setting groups read BEND, HARMONY, OCTAVE and DETUNE, and the footswitch pedals read DROP, HAMMER and GLIDE. This document uses the real names so you can check it against the manuals.</p>
+
+<h2 id="pedals">The seven pedals at a glance</h2>
+<div class="tbl"><table><thead><tr><th>Pedal</th><th>Played with</th><th>What it adds</th><th>Algorithms</th></tr></thead><tbody>
+<tr><td><strong>Whammy 5</strong></td><td>Treadle</td><td>10 Whammy, 9 Harmony, 2 Detune settings on one selector</td><td>Classic (original single-note algorithm) and Chords (the DT's polyphonic one), on a toggle</td></tr>
+<tr><td><strong>Whammy DT</strong></td><td>Treadle plus two drop footswitches</td><td>The same 21 settings plus a separate Drop Tune side: up or down 1 to 7 semitones, an octave, or an octave plus dry. A Momentary footswitch for hammer-on style shifts. True or DSP bypass</td><td>Bend range +2 to −3 octaves, detune −4 to −30 cents</td></tr>
+<tr><td><strong>MonoNeon Whammy</strong></td><td>Treadle</td><td>10 Whammy settings, Hypersonic (3 octaves up), a new Detune, 6 Harmony settings and 3 Octaver blends. Neon paint and a tape kit</td><td>Classic and Chords toggle. Optimised for guitar and bass</td></tr>
+<tr><td><strong>Bass Whammy</strong></td><td>Treadle</td><td>Bass-specific Whammy and Harmony lists, Shallow and Deep Detune</td><td>Classic and Chords, tuned for bass</td></tr>
+<tr><td><strong>The Drop</strong></td><td>One footswitch</td><td>Polyphonic drop from 1 semitone to an octave, plus octave and dry. Momentary or latching</td><td>The DT's polyphonic drop algorithm</td></tr>
+<tr><td><strong>HammerOn</strong></td><td>Two footswitches</td><td>Instant pitch jumps to 27 pitches across ±2 octaves. Hammer-On, Impossible and Sequence modes, Dry+, Trill with tap tempo. "Seven pedals in one"</td><td>Classic and Chords (default Chords). Chords runs at 22 kHz</td></tr>
+<tr><td><strong>Ricochet</strong></td><td>One footswitch</td><td>Shifts to one of 7 intervals, up or down, gliding at SHIFT and RETURN rates. Momentary or latching. Trajectory LED ladder</td><td>Classic and Chords (default Chords). Chords runs at 22 kHz</td></tr>
+</tbody></table></div>
+
+<h2 id="engine">One engine or separate modes</h2>
+<p>You asked which works better for the four treadle pedals. They share almost everything: the same treadle, the same Classic and Chords algorithms, the same calibration, and three of the four have nearly the same lists. What differs is the list of settings, a few extra controls (the DT's drop side, the MonoNeon's Octaver and Hypersonic) and small differences in voicing.</p>
+<div class="tbl"><table><thead><tr><th></th><th>One engine, Model selector (recommended)</th><th>Four separate modes</th></tr></thead><tbody>
+<tr><td>Bass tracking to low B</td><td>Built once, every model gets it, as you asked</td><td>Four tunings to keep in step, easy to fix in one and miss in another</td></tr>
+<tr><td>Treadle feel</td><td>One calibration, curve and smoothing for every model</td><td>Same in theory, but each mode's code can drift</td></tr>
+<tr><td>Faithfulness</td><td>Each model carries its exact list, its own detune values and a character profile (glitch amount, bandwidth, voicing). Close, but the four Classic modes share one core</td><td>Each could carry a slightly different Classic core. Nobody publishes measurements, so the extra fidelity would be guesswork</td></tr>
+<tr><td>Live switching</td><td>Changing model keeps the treadle position, bypass and footswitches, with no reload. The MonoNeon skin can flip on the spot</td><td>Mode change is a bigger jump, harder to keep click-free</td></tr>
+<tr><td>CPU and Pi</td><td>One shifter running, cost doesn't change with model</td><td>Same if only one runs, more code to port</td></tr>
+<tr><td>Keeper and presets</td><td>Model is one parameter in the shared list</td><td>Each mode has its own parameter set, a messier remote list</td></tr>
+<tr><td>Downside</td><td>The panel has to show four slightly different selectors. The Model card changes the dial's labels, so muscle memory for "position 7" differs between models (as it does between the real pedals)</td><td>Clearer separation, nothing else</td></tr>
+</tbody></table></div>
+<p><strong>How the combined engine runs.</strong> Every voice has one target pitch made from up to three parts added in semitones: the shift layer (the DT's drop tune or The Drop), the jump (HammerOn, Ricochet, a sequence step) and the treadle bend. One shifter produces it. Harmony, Octaver, Detune, Dry+ and octave-plus-dry add a second voice next to the dry. So a drop of −2 under a whammy bend to +12 is one shift of +10, one latency, one set of artefacts, which is also how the DT behaves (its drop and whammy run together and HammerOn's Pitch 1 is relative to the current sequence step).</p>
+
+<h2 id="treadle">Treadle section</h2>
+<p>The selector is a Karlsson dial whose positions change with the Model card. Toe up is the original pitch (or the first interval for Harmony and Octaver). Toe down is the setting's target. Whammy and Hypersonic settings are wet only. Harmony and Octaver add the dry. Detune fades a detuned copy in with the treadle.</p>
+
+<h3>Settings for each model, from the manuals</h3>
+<div class="tbl"><table><thead><tr><th>Group</th><th>Whammy 5 and DT</th><th>MonoNeon</th><th>Bass Whammy</th></tr></thead><tbody>
+<tr><td>Whammy (bend, no dry)</td><td>2 oct up, 1 oct up, 5th up, 4th up, 2nd down, 4th down, 5th down, 1 oct down, 2 oct down, dive bomb (3 oct down)</td><td>2 oct up, 1 oct up, 5th up, 4th up, <strong>2nd up</strong>, 2nd down, 4th down, 5th down, 1 oct down, dive bomb. No 2 oct down</td><td>2 oct up, 1 oct up, 5th up, 4th up, <strong>2nd up</strong>, 2nd down, 4th down, 5th down, 1 oct down, dive bomb. No 2 oct down</td></tr>
+<tr><td>Hypersonic</td><td></td><td>Bend to 3 oct up</td><td></td></tr>
+<tr><td>Harmony (dry plus a bending second note, toe up / toe down)</td><td>Oct down / oct up, 5th down / 4th down, 4th down / min 3rd down, 5th up / 7th up (dominant), 5th up / 6th up, 4th up / 5th up, 3rd up / 4th up, min 3rd up / 3rd up, 2nd up / 3rd up</td><td>4th up / 5th up, 3rd up / 4th up, 5th down / 4th down, 6th down / 5th down, 4th down / 5th up, 5th down / 4th up</td><td>Oct up / 2 oct up, oct up / 10th up, oct down / oct up, oct down / 4th down, 5th up / oct up, 5th up / 6th up, 5th down / 5th up, 4th down / 5th up, 4th down / 3rd up</td></tr>
+<tr><td>Octaver (dry plus a morphing octave)</td><td></td><td>Oct up / 2 oct up, oct down / oct up, 2 oct down / oct down</td><td></td></tr>
+<tr><td>Detune (treadle fades the copy in)</td><td>Shallow, Deep. DT spec: −4 to −30 cents</td><td>One new Detune, "moderately detuned", thick and layered</td><td>Shallow, Deep</td></tr>
+<tr><td>Positions on the dial</td><td class="num">21</td><td class="num">21</td><td class="num">21</td></tr>
+</tbody></table></div>
+<p>Whammy 5 and DT share the same 21 settings. The DT adds the drop side (below). Your brief mentions 10 MonoNeon Whammy settings, and one review counts 11. The manual lists ten plus Hypersonic on its own LED, so I've followed the manual.</p>
+
+<h3>Controls on the treadle pedals</h3>
+<div class="tbl"><table><thead><tr><th>Original control</th><th>What it does</th><th>How Divebomb does it</th></tr></thead><tbody>
+<tr><td><strong>Treadle</strong></td><td>Toe down bends further, toe up back to the original pitch. Over MIDI, CC 11 sets the position (0 toe up, 127 toe down) and overrides the treadle</td><td>Your expression pedal on CC 11, the same CC the originals use, through the shared calibration, curve and smoothing. An on-screen treadle you can drag. See Treadle feel</td></tr>
+<tr><td><strong>Selector knob</strong></td><td>Picks the Whammy, Harmony, Detune (and Octaver, Hypersonic) setting. The manual says to rock toe down before turning it</td><td>The Karlsson hero dial, with the setting on a flip card. Footswitch C steps it. Changes glide over 15 ms so a step mid-note doesn't click</td></tr>
+<tr><td><strong>Classic / Chords switch</strong></td><td>Classic: the original single-note algorithm, with its glitches. Chords: the DT's polyphonic algorithm, best for full chords</td><td>The same switch, per preset. Classic is a pitch-synchronous mono shifter with the tracking quirks kept on purpose (see Character). Chords is a polyphonic shifter</td></tr>
+<tr><td><strong>Effect on/off</strong></td><td>True bypass</td><td>Footswitch A. Click-free crossfade. Trails choice: the shifted voice can finish its bend back to dry</td></tr>
+<tr><td><strong>MIDI program changes</strong></td><td>Pick any setting, active or bypassed, separately for Classic and Chords</td><td>Every setting is a host parameter. The original program-change chart sits behind the Original pedal MIDI map channel, off by default. CC 11 already matches the house expression default, so there's no clash to avoid</td></tr>
+<tr><td><strong>MIDI channel and calibration</strong></td><td>Power-up menus</td><td>The shared Pedal page: Learn, one-step heel and toe calibration, saved for every Flip Fella plugin</td></tr>
+<tr><td><strong>DT: Drop Tune selector</strong></td><td>Shift up 1 to 7 semitones, octave, octave plus dry (a 12-string). Down the same. Runs alongside the whammy</td><td>A second, smaller dial on the DT model's panel, the shift layer. Footswitch D. Available in every model as a layer you can switch on, because it costs nothing extra</td></tr>
+<tr><td><strong>DT: Drop Tune on/off and Momentary</strong></td><td>One footswitch latches the drop, the other engages it only while held (or bypasses it while held if the drop is already on)</td><td>Footswitch D: tap latches, hold is momentary and lets go on release. The momentary inversion is kept: hold D while the layer is latched and it bypasses until you let go</td></tr>
+<tr><td><strong>DT: rise and fall</strong></td><td>Not in the DT manual. Its Momentary switch is instant. One retailer listing claims adjustable rise and fall, the manual doesn't</td><td>Instant by default, true to the DT (Kevin's call). An optional Glide on the Deep page (rise and fall times, borrowed from Ricochet's ballistics) for smooth drop-ins</td></tr>
+<tr><td><strong>DT: True and DSP bypass</strong></td><td>DSP bypass keeps the processor running so momentary drops transition smoothly</td><td>Always running, always smooth. Nothing to choose</td></tr>
+<tr><td><strong>DT: FS3X footswitch</strong></td><td>Mode, Down, Up to step settings on either side</td><td>Footswitch C (next, hold for previous) on the whammy side. The shift layer is stepped on screen or by a remap</td></tr>
+</tbody></table></div>
+
+<h2 id="footswitch">Footswitch section</h2>
+<p>The three compact pedals become one section. The Drop always sits on footswitch D. Footswitch B plays either HammerOn's Pitch 1 or the Ricochet, chosen by a JUMP card (HAMMER or GLIDE). Footswitch C is always HammerOn's Pitch 2, as on the original. The shift layer is shared with the treadle section, so a latched drop carries across when you switch sections.</p>
+
+<h3>The Drop</h3>
+<div class="tbl"><table><thead><tr><th>Original control</th><th>What it does</th><th>How Divebomb does it</th></tr></thead><tbody>
+<tr><td><strong>Effect selector</strong></td><td>Down 1 to 7 semitones, an octave, or an octave plus dry</td><td>A DROP flip card with the nine settings. Same table as the DT's shift-down side</td></tr>
+<tr><td><strong>Momentary switch</strong></td><td>On: the effect lasts only while the footswitch is held. Off: latching. Quirk: if it was latched on when you switch to momentary, pressing works as a kill switch</td><td>A MOMENTARY / LATCH chip, momentary by default (your brief). The kill-switch inversion is kept exactly. Quick taps give the stutter accents reviewers like</td></tr>
+<tr><td><strong>Footswitch</strong></td><td>True bypass</td><td>Footswitch D</td></tr>
+</tbody></table></div>
+
+<h3>HammerOn</h3>
+<div class="tbl"><table><thead><tr><th>Original control</th><th>What it does</th><th>How Divebomb does it</th></tr></thead><tbody>
+<tr><td><strong>Pitch 1 footswitch</strong></td><td>Always a hammer-on: press jumps to its pitch, release returns</td><td>Footswitch B</td></tr>
+<tr><td><strong>Pitch 2 footswitch and Mode button</strong></td><td>Hammer-On (purple, a second jump), Impossible (red, alternates between two pitches on each press), Sequence 2, 3 or 5 notes (blue, teal, green, latching steps through programmed transpositions)</td><td>Footswitch C, with a MODE card in the same five colours. In Sequence mode Pitch 1 hammers relative to the current step, as on the pedal, so a sequence works as stored drop and capo tunings</td></tr>
+<tr><td><strong>Selector knob</strong></td><td>27 pitches: every semitone from −12 to +12 plus ±24. Sets the pitch of the last footswitch pressed. Holding a footswitch while turning lets you hear it</td><td>A pitch dial with 27 detents and two flip cards (PITCH 1, PITCH 2). The last switch pressed lights up its card. Holding it while turning auditions, as on the pedal</td></tr>
+<tr><td><strong>Pitch Select LEDs</strong></td><td>16 LEDs named as major-scale intervals, two lit together for the chromatic notes in between</td><td>A ladder drawn the same way, so it reads like the pedal, with the interval name and semitones on the flip card</td></tr>
+<tr><td><strong>Dry+</strong></td><td>Adds the dry signal for harmony (Harmony-On, Impossible with dry, the "techno" sequencer)</td><td>DRY+ chip</td></tr>
+<tr><td><strong>Trill</strong></td><td>Turns one press into rapid repeated presses at a knob-set rate. Hold Trill 2 s to tap tempo</td><td>TRILL chip, rate on the dial or synced to Ableton's tempo (1/8 to 1/32, triplets, sync on by default). An on-screen TAP button, but no footswitch tap (two-foot tapping isn't practical). The expression pedal sets the rate by default in this section. Footswitch A hold toggles Trill</td></tr>
+<tr><td><strong>Sequence retrigger</strong></td><td>PlayOnce, ReTrigger (repeats while held) or Loop (Pitch 2 starts and stops). Set by holding Mode</td><td>A three-way chip beside MODE</td></tr>
+<tr><td><strong>Classic / Chords</strong></td><td>Hold Dry+ 2 s. Default Chords. Chords runs at 22 kHz (11 kHz bandwidth)</td><td>The section's Classic / Chords switch, default Chords. An Original bandwidth option rolls off above 11 kHz for the slightly dark compact-pedal sound</td></tr>
+<tr><td><strong>Both footswitches</strong></td><td>True bypass. Powers up bypassed</td><td>Bypass is on A. B+C held 1 s steps the model instead (see Footswitch defaults). Divebomb remembers its state with your set instead of powering up bypassed</td></tr>
+<tr><td><strong>Factory reset</strong></td><td>Hold Pitch 1 at power up</td><td>Init preset</td></tr>
+</tbody></table></div>
+
+<h3>Ricochet</h3>
+<div class="tbl"><table><thead><tr><th>Original control</th><th>What it does</th><th>How Divebomb does it</th></tr></thead><tbody>
+<tr><td><strong>Pitch knob</strong></td><td>2nd, 4th, 5th, 7th, octave, 2 octaves, octave plus dry</td><td>A seven-step card</td></tr>
+<tr><td><strong>Range switch</strong></td><td>Shift up or down</td><td>UP / DOWN chip</td></tr>
+<tr><td><strong>Shift and Return (concentric)</strong></td><td>How fast the pitch glides to the interval when on, and back when off. The manual gives no range</td><td>Two knobs, 0 ms (instant) to 3 s on an exponential taper, assumed from demos. Expression can sweep both</td></tr>
+<tr><td><strong>Momentary switch</strong></td><td>Hold to shift, or latch. Same kill-switch inversion as The Drop</td><td>MOMENTARY / LATCH chip, momentary by default, inversion kept</td></tr>
+<tr><td><strong>Trajectory ladder</strong></td><td>LEDs run up or down at the glide rate. Idle, they cycle every 2 s in the Range direction</td><td>A ladder beside Pebble doing exactly that</td></tr>
+<tr><td><strong>Classic / Chords</strong></td><td>Hold the footswitch 3 s and flick Range. Default Chords. Remembered</td><td>The section switch</td></tr>
+<tr><td><strong>Example settings</strong></td><td>Killing in the Name Of (Classic), Whole Step Stabs (Chords), 7 String (Chords), Dive Bombs (Classic)</td><td>Factory presets with those names changed to plain descriptions</td></tr>
+</tbody></table></div>
+<p>The Ricochet has one footswitch, so it stays that way (Kevin's call): in GLIDE, footswitch B is the Ricochet with one interval, direction, Shift and Return, exactly as on the pedal. C keeps HammerOn's Pitch 2, so you can glide on B and hammer on C.</p>
+
+<h2 id="character">The character to keep</h2>
+<ul>
+<li><strong>Classic mode warble.</strong> Players describe Classic as the mode for the glitchy sounds associated with the original, and Chords as the clean, precise one. The warble on held, ringing strings is part of famous parts (one long-time owner points to the octave intro of "My Iron Lung"). Divebomb keeps it: the Classic tracker briefly mis-locks on chords and ringing strings like the original. A small GLITCH trim on the Deep page goes from 0 (clean) through 1 (original, default) to 2 (more).</li>
+<li><strong>Classic on chords flutters.</strong> MusicRadar heard digital flutter in Classic with chords on both Whammy and Harmony, which Chords removes. Kept, by the same tracker.</li>
+<li><strong>Dive bombs into rumble.</strong> Three octaves down sends low notes subsonic. The originals do this, so Divebomb does too, with a 20 Hz high-pass so it never reaches your speakers as pure DC.</li>
+<li><strong>Compact pedals sound a touch darker in Chords.</strong> Ricochet and HammerOn run Chords at 22 kHz. The Original bandwidth option covers it.</li>
+<li><strong>Stutter drops.</strong> Tapping a momentary Drop or DT momentary for accents.</li>
+<li><strong>Iconic sounds as factory presets</strong>: octave-up solo (Classic, 1 oct up), octave-up warble intro, octave-down "bass" riff on guitar, 12-string (octave plus dry up), whole-step stabs, dive bomb, Hypersonic squeal, MonoNeon-style octave morph on bass, techno sequencer (Sequence 5 with Dry+ and Trill).</li>
+</ul>
+<p>What people complain about, and Divebomb fixes rather than copies: The Drop and older Whammys losing track of bass notes as they fade, warbly or muddy low notes on bass, and noticeable lag for fast bass grooves.</p>
+
+<h2 id="bass">Bass, in every model</h2>
+<ul>
+<li><strong>Tracking down to low B (30.9 Hz).</strong> The Classic tracker looks for pitches down to 28 Hz in every model, not just Bass. It runs on a 4x decimated copy so the long window low B needs is cheap, and it locks from the last period rather than waiting for the next, so the audio isn't held back while it locks. Until it locks on a new low note (one to two cycles, about 35 to 65 ms on low B), the shifted voice uses a short grain shifter, which sounds like the original's attack glitch.</li>
+<li><strong>Holding a fading note.</strong> Silence is judged against how loud you've been playing (the Speckle lesson), so a dying low B keeps its pitch instead of falling into warble.</li>
+<li><strong>Low Anchor</strong>, your blend option. A Linkwitz-Riley crossover keeps the dry signal below a set frequency (default 100 Hz, range 40 to 250 Hz) and puts the shifted signal above it. The dry low band has zero latency and sums flat with the wet. A LOW ANCHOR button sits on both sections with its frequency on a small knob. In Whammy settings (wet only) it keeps the fundamental under the bend, in Harmony and Octaver it stops two low notes fighting, and on a drop it keeps the punch while the upper harmonics shift. On by default when Input is Bass and in the NEON model (Kevin's call), off otherwise, and you can always switch it.</li>
+<li><strong>Single notes and octaves.</strong> You don't tune below low B or play chords on bass through it, so Live Classic covers your bass playing. The longer Chords windows are tuned for guitar chords.</li>
+<li><strong>Bass voicing.</strong> In the Bass model the Chords shifter uses longer low-band analysis (the Afterglow lesson: twice the window for bass) and a gentler formant handling, and Detune Shallow and Deep are scaled for bass. The Bass model's harmony list leans upward (oct up / 10th up and the like) because harmonies below a bass note turn to mud.</li>
+<li><strong>Test cases</strong>: plucked low B and E, fading notes, slap, a held fifth, and a fast sixteenth-note line at 120 BPM. The render test fails if any model is more than 5 cents out on a held low B or loses lock on a note that's still within 23 dB of your playing level.</li>
+</ul>
+
+<h2 id="latency">Latency</h2>
+<p>Latency is the time a pitch-shifted note arrives after you play it. In a plugin it has two parts: what the shifter adds (fixed, reported to Ableton) and Ableton's own buffer, which you set. Shifting a note needs at least part of a cycle of it, and a low B cycle is 32 ms long, so the clean polyphonic method costs a lot on bass. Divebomb gives you a choice.</p>
+<div class="tbl"><table><thead><tr><th>Mode</th><th>How it shifts</th><th class="num">Shifter adds</th><th class="num">Plus one 64-sample buffer</th><th class="num">Plus one 128-sample buffer</th></tr></thead><tbody>
+<tr><td><strong>Live</strong>, Classic (default)</td><td>Pitch-synchronous grains taken from the past, tracker locks from behind</td><td class="num">2.7 ms (128 samples)</td><td class="num">4.0 ms</td><td class="num">5.3 ms</td></tr>
+<tr><td><strong>Live</strong>, Chords</td><td>Multi-band grain shifter, short grains up top, longer in the bass band</td><td class="num">5.3 ms (256 samples)</td><td class="num">6.7 ms</td><td class="num">8.0 ms</td></tr>
+<tr><td><strong>Studio</strong>, Chords</td><td>Phase vocoder with transient handling and phase-locked partials, cleanest</td><td class="num">21.3 ms (1024 samples)</td><td class="num">22.7 ms</td><td class="num">24.0 ms</td></tr>
+<tr><td><strong>Studio</strong>, Bass model</td><td>As above with the doubled low-band window</td><td class="num">42.7 ms (2048 samples)</td><td class="num">44.0 ms</td><td class="num">45.3 ms</td></tr>
+</tbody></table></div>
+<p>These are design targets at 48 kHz. The build will measure the real figures with a click and a plucked low B and print them on the release with CPU per instance at 64 and 128 samples, as the house rules ask. With Low Anchor on, the bass fundamental always arrives at zero added latency, which is why it matters most in Live mode. Live trades some smoothness on chords and on big downward shifts for speed. It's the default because you play bass live. Studio is for recording and resampling, where Ableton compensates the delay. A tip for the setup note: Ableton's "Reduced Latency When Monitoring" keeps other plugins' delay off your monitored track.</p>
+
+<h2 id="treadle-feel">Treadle feel on the expression pedal</h2>
+<ul>
+<li><strong>Calibration</strong> from the shared <code>PedalControl</code>: one-step heel and toe, which also fixes your pedal reading backwards on the footswitch. Heel is always toe up, the original pitch.</li>
+<li><strong>No steps.</strong> MIDI CC has 128 values, so across a two-octave bend each step is about 0.19 semitones, which you'd hear as a staircase. Divebomb measures how often values arrive and glides between them over that gap (usually 5 to 15 ms), sample by sample. It never waits for the next value, so there's no lag. 14-bit expression is read if your controller sends it.</li>
+<li><strong>Smoothing</strong> uses the house setting, default Low, so fast rocks stay fast.</li>
+<li><strong>Curve</strong>: the originals map the treadle evenly in pitch, so the default curve is Linear in semitones. Exponential and S-curve are on the Pedal page.</li>
+<li><strong>Exact ends.</strong> The last 2% at each end snaps to the exact interval, so toe down is a true octave and heel down is truly dry, even if your pedal doesn't quite reach 0 or 127.</li>
+<li>In the footswitch section, the same pedal sets the Trill rate by default, or Ricochet's shift and return times. Assignable to any control per preset.</li>
+</ul>
+
+<h2 id="footswitches">Footswitch defaults</h2>
+<p>Momentary CC 20 to 23 on channel 16 (any channel when read straight from the footswitch's USB cable), expression CC 11. Family timings: hold 0.45 s, combo window 0.12 s, combo hold 1 s. Learn remaps anything.</p>
+<h3>Treadle section</h3>
+<div class="tbl"><table><thead><tr><th>Footswitch</th><th>Tap</th><th>Hold</th></tr></thead><tbody>
+<tr><td>A</td><td>Effect on or off, on the press</td><td>Classic / Chords</td></tr>
+<tr><td>B</td><td colspan="2">Momentary whammy: press rises to toe down at the Rise time, release falls back at the Fall time (defaults 120 ms and 250 ms). If the expression pedal is further down, it wins</td></tr>
+<tr><td>C</td><td>Next setting on the dial (wraps round)</td><td>Previous setting</td></tr>
+<tr><td>D</td><td>Shift layer on or off (drop tune, or detune, chosen per preset)</td><td>Shift layer only while held, and if it was on, off while held</td></tr>
+<tr><td>A+B</td><td>Switch to the footswitch section</td><td></td></tr>
+<tr><td>B+C</td><td></td><td>Held 1 s: next model (FIVE, DUAL, NEON, BASS)</td></tr>
+<tr><td>C+D</td><td>Hand the footswitches to the next Divebomb</td><td>Held 1 s: <strong>Keeper</strong></td></tr>
+</tbody></table></div>
+<h3>Footswitch section</h3>
+<div class="tbl"><table><thead><tr><th>Footswitch</th><th>Tap</th><th>Hold</th></tr></thead><tbody>
+<tr><td>A</td><td>Effect on or off</td><td>Trill on or off</td></tr>
+<tr><td>B</td><td colspan="2">HammerOn Pitch 1, or the Ricochet. Acts on the press, lets go on release (Ricochet latching if set)</td></tr>
+<tr><td>C</td><td colspan="2">HammerOn Pitch 2 in its mode (hammer, impossible, sequence step)</td></tr>
+<tr><td>D</td><td colspan="2">The Drop, momentary (latching if set)</td></tr>
+<tr><td>A+B</td><td>Switch to the treadle section</td><td></td></tr>
+<tr><td>B+C</td><td></td><td>Held 1 s: next model</td></tr>
+<tr><td>C+D</td><td>Hand the footswitches to the next Divebomb</td><td>Held 1 s: <strong>Keeper</strong></td></tr>
+</tbody></table></div>
+<p><strong>Why:</strong></p>
+<ul>
+<li><strong>A is bypass in both sections</strong>, as in every Flip Fella plugin, and <strong>A+B switches section in both</strong>, so the switch you use to escape is always under the same foot. Your ideas for B, C and D are kept as you described them.</li>
+<li><strong>Pitch switches act on the press.</strong> A jump that waits to see if it's a hold is useless. So B, C (in the footswitch section) and D have no separate hold jobs, the hold is the job. Where a switch has a hold job (A, C in the treadle section), the tap still fires on the press and the hold adds to it after 0.45 s.</li>
+<li><strong>Combos undo the first press</strong> (the Speckle and Afterglow pattern). If B joins A within 0.12 s, A's bypass toggle is taken back before you hear it, and the section switches. If C and D are pressed together, both pitch jumps are taken back at once so Keeper's one-second hold is silent.</li>
+<li><strong>Model on B+C held 1 s</strong> (you wanted it on a footswitch). It's the one combo free in both sections. B and C's jumps are taken back as soon as the combo is seen, so nothing sounds while you hold, then the model steps and its card flips. A+B couldn't take it, because its tap already switches section on the press.</li>
+<li><strong>Keeper never clashes.</strong> C+D's tap and hold are separate events in the shared code, and no single switch's job needs C and D together.</li>
+<li><strong>D in the treadle section, tap to latch and hold for momentary</strong>, gives you both of the DT's drop footswitches on one switch. In the footswitch section D stays purely momentary by default because The Drop's quick stutter taps would otherwise latch.</li>
+<li>Every footswitch job has an on-screen button.</li>
+</ul>
+
+<h2 id="mononeon">MonoNeon skin</h2>
+<ul>
+<li>Choosing the NEON model repaints the whole panel neon yellow with neon orange, with gaffer tape strips across the panel like the tape in the pedal's customising kit (neon yellow and neon orange tape plus a marker). Tape strips carry a few hand-marked labels, as if written with the kit's marker.</li>
+<li>The change runs as a flip-card wipe: the panel splits into tiles that flip left to right over 0.6 s, each turning over to its new colour, with the tape slapped on last. Any other model flips back to the dark family look the same way. Reduced motion switches instantly.</li>
+<li>Pebble turns neon orange with a strip of tape across its head.</li>
+<li><strong>Readability.</strong> Every label on yellow is near-black (about 17:1 contrast). Orange is only ever a fill behind black text, never text on yellow, because orange on yellow fails. Flip cards stay black with white digits in both skins. The mockup has a contrast check built in.</li>
+</ul>
+
+<h2 id="pebble">Pebble</h2>
+<ul>
+<li>Stretches tall as the pitch rises and squashes flat as it dives, following the actual output pitch, not just the treadle.</li>
+<li>Wobbles side to side on Detune, at the detune's beat rate.</li>
+<li>Jumps on every HammerOn hit, and bounces along with Trill and sequence steps.</li>
+<li>Slides down a little ladder with The Drop, and leans into Ricochet glides.</li>
+<li>Blinks, reacts to input level and clipping, nods and shows KEPT for Keeper, as in every plugin.</li>
+</ul>
+
+<h2 id="family">Family conventions</h2>
+<ul>
+<li>DSP core in plain C++17 with no JUCE and no Windows-only code, with an offline render test, building for Windows x64 and Linux ARM64.</li>
+<li>GitHub Actions builds the VST3 and the Linux ARM64 version in <code>kevinwkaye/divebomb</code>, with CPU and latency figures on each release.</li>
+<li>One parameter list holds every control, footswitch action and Keeper action, for a remote controller.</li>
+<li><code>PedalControl</code> with <code>DirectMidiInput</code> and <code>Keeper</code> copied from Prism Patch, unchanged. <code>docs/foot-control-plan.md</code> holds the tables above.</li>
+<li>Pages: Main (both sections), Deep (glitch, bandwidth, Low Anchor, glide, latency mode), Pedal.</li>
+<li>No brand names in the UI. Setting names describe intervals, which the originals do too.</li>
+</ul>
+
+<h2 id="questions">Decisions (Kevin, 6 November 2026)</h2>
+<ol class="qs">
+<li><strong>Combined engine</strong>: yes, one treadle engine with a Model selector.</li>
+<li><strong>Low Anchor</strong>: on by default when Input is Bass and in the NEON model, off otherwise.</li>
+<li><strong>Range and playing</strong>: nothing below low B, no chords on bass through it. Live Classic is the bass path.</li>
+<li><strong>DT momentary</strong>: instant by default, optional glide.</li>
+<li><strong>Ricochet</strong>: kept as the original, one footswitch (B). C stays HammerOn's Pitch 2.</li>
+<li><strong>B+C tap</strong>: no footswitch tap tempo. Trill syncs to Ableton by default with an on-screen Tap.</li>
+<li><strong>Model from your feet</strong>: yes, B+C held 1 s steps the model.</li>
+<li><strong>Glitch</strong>: as true to the original as possible. GLITCH 1 is the default in every model, bass included.</li>
+</ol>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://manualmachine.com/digitech/whammy/1982654-owners-manual" target="_blank" rel="noopener">Whammy 5 owner's manual</a></li>
+<li><a href="https://manuals.plus/digitech/whammy-dt-drop-tuning-pedal-manual.pdf" target="_blank" rel="noopener">Whammy DT owner's manual</a></li>
+<li><a href="https://eadn-wc05-7545739.nxedge.io/wp-content/uploads/2025/01/Whammy-MN-Manual_Rev-B_edit3.pdf" target="_blank" rel="noopener">MonoNeon Whammy manual</a> and <a href="https://digitech.com/introducing-mononeon-signature-whammy/" target="_blank" rel="noopener">DigiTech's launch post</a></li>
+<li><a href="https://cf3.zzounds.com/media/Digitech_Whammy_Bass_User_Manual-795464d2f395a802790a93e4f26a0b8b.pdf" target="_blank" rel="noopener">Bass Whammy owner's manual</a></li>
+<li><a href="https://www.kirstein.de/docs/manuals/00111874/manual_EN.pdf" target="_blank" rel="noopener">HammerOn user's manual</a></li>
+<li><a href="https://archive.org/download/manualsonline-id-dbd866c6-0a07-46be-a6e7-377fad333419/dbd866c6-0a07-46be-a6e7-377fad333419.pdf" target="_blank" rel="noopener">Whammy Ricochet owner's manual</a></li>
+<li><a href="https://www.soundseasy.com.au/collections/all/products/digitech-drop" target="_blank" rel="noopener">The Drop controls</a>, <a href="https://www.effectsdatabase.com/reviews/digitech/drop" target="_blank" rel="noopener">Effects Database review of The Drop</a>, <a href="https://guitargearfinder.com/?p=685" target="_blank" rel="noopener">Guitar Gear Finder on The Drop with bass</a></li>
+<li><a href="https://www.musicradar.com/reviews/guitars/digitech-whammy-5th-generation-562034" target="_blank" rel="noopener">MusicRadar Whammy 5 review</a>, <a href="https://www.guitarworld.com/gear/effects-pedals/digitech-mononeon-whammy-review" target="_blank" rel="noopener">Guitar World MonoNeon review</a>, <a href="https://www.premierguitar.com/reviews/pedals/digitech-hammeron" target="_blank" rel="noopener">Premier Guitar HammerOn review</a>, <a href="https://www.guitarworld.com/gear/guitar-pedals/digitech-hammeron-pedal" target="_blank" rel="noopener">Guitar World HammerOn launch</a></li>
+<li>Owner reviews: <a href="https://www.thomann.co.uk/digitech_whammy_5_reviews.htm?rating=4" target="_blank" rel="noopener">Whammy 5</a>, <a href="https://www.thomann.co.uk/digitech_whammy_dt_reviews.htm" target="_blank" rel="noopener">Whammy DT</a>, <a href="https://www.thomann.de/ro/digitech_whammy_bass.htm" target="_blank" rel="noopener">Bass Whammy</a>, <a href="https://www.thomann.de/be/digitech_the_drop_reviews.htm?rating=2" target="_blank" rel="noopener">The Drop on bass</a></li>
+<li><a href="https://thekingofgear.com/post/50342304914/hi-while-youre-discussing-whammy-pedals-id-like" target="_blank" rel="noopener">The King of Gear on Classic-mode warble</a>, <a href="https://peachguitars.com/digitech-bass-whammy-legendary-pitch-shifting-effect-pedal-for-bass-guitar.htm" target="_blank" rel="noopener">Peach Guitars on Bass Whammy tracking modes</a></li>
+</ul>
+</div>
